@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Invitación - Nezuko</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --accent: #18a5a9;
+            --muted: #cfeef0;
+            --glass: rgba(255, 255, 255, 0.014);
+        }
+        
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            /*  height: 100%;
+            width: 100%;
+            /*  overflow: hidden;
+            /* quita scroll */
+            font-family: "Poppins", system-ui, -apple-system, sans-serif;
+            background: linear-gradient(180deg, #ffffff00 0%, #ffffff 100%);
+            /*   background-image: url('./img/halloween_zombie_wallpaper_by_benjamin_rahmanovic_dgdgbft-fullview.jpg');*/
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .phone {
+            position: relative;
+            width: 90%;
+            min-width: 480px;
+            max-width: 600px;
+            /* límite opcional para que no crezca demasiado en pantallas grandes */
+            /*   height: auto;
+            max-height: 100vh;*/
+            margin: 20px auto;
+            /* centrado en PC */
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(255, 41, 226, 0.514);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        /* 📱 En móviles: ocupa todo */
+        
+        @media (max-width: 768px) {
+            .phone {
+                width: 100vw;
+                min-width: unset;
+                max-width: unset;
+                height: 100vh;
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+        /* Fondo principal difuminado grande */
+        
+        .bg {
+            position: absolute;
+            top: 0;
+            /* extiende arriba */
+            left: 0;
+            /* extiende a los lados */
+            right: 0;
+            bottom: 0;
+            /* extiende abajo */
+            background-image: url('./img/fondo3.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7);
+            /* oscurece sin usar blur */
+            z-index: 1;
+            border-radius: 0;
+            /* sin esquinas visibles */
+        }
+        /* Gradiente extra para difuminar bordes suavemente */
+        
+        .bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+        }
+        
+        .content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* empieza arriba */
+            height: 100%;
+            /* ocupa toda la altura del contenedor */
+            /*   padding: 36px 28px;*/
+            padding-bottom: 40px;
+            box-sizing: border-box;
+        }
+        
+        .top-image {
+            width: 20%;
+            margin-bottom: 12px;
+        }
+        
+        h1.name {
+            font-size: clamp(30px, 12vw, 50px);
+            line-height: 0.9;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 6px 18px rgb(225, 0, 255);
+            padding: 20px 0;
+            color: #000000;
+        }
+        
+        p.subtitle {
+            margin: 0;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+            opacity: 0.95;
+            color: rgb(255, 255, 255);
+            font-weight: 500;
+        }
+        
+        p {
+            color: rgb(255, 255, 255);
+        }
+        
+        .date {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .date .daynum {
+            font-size: clamp(28px, 8vw, 48px);
+            font-weight: 800;
+            background: linear-gradient(90deg, #ea00ff, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        }
+        
+        .meta .month {
+            font-weight: 700;
+            font-size: clamp(14px, 5vw, 18px);
+            letter-spacing: 1px;
+            color: #000000;
+        }
+        
+        .meta .time {
+            font-size: clamp(12px, 4vw, 16px);
+            opacity: 0.95;
+            color: #fff;
+        }
+        
+        .top-image {
+            width: 50%;
+            /* más grande */
+            max-width: 180px;
+            /* evita que se salga en pantallas pequeñas */
+            height: auto;
+            /* mantiene proporción */
+            display: block;
+            margin: 12px 0;
+            /* espacio arriba y abajo */
+        }
+        
+        .bottom-image {
+            width: 60%;
+            /* más grande */
+            max-width: 180px;
+            /* evita que se salga en pantallas pequeñas */
+            height: auto;
+            /* mantiene proporción */
+            display: block;
+            margin: 12px 0;
+            /* espacio arriba y abajo */
+        }
+        
+        .actions {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            /* mantiene los botones abajo */
+            padding-bottom: calc(28px + env(safe-area-inset-bottom));
+        }
+        
+        .btn {
+            display: block;
+            text-align: center;
+            /* centra el texto */
+            width: 180px;
+            /* tamaño fijo */
+            max-width: 90%;
+            /* responsive en móviles */
+            padding: 7px 11px;
+            border-radius: 10px;
+            background-image: url('img/pekuche.jpeg');
+            /* tu imagen de fondo */
+            background-size: cover;
+            /* cubre todo el botón */
+            background-position: center;
+            /* centra la imagen */
+            border: 1px solid rgba(255, 0, 242, 0.719);
+            color: #ff00ff;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 6px auto;
+            /* centra el botón horizontalmente */
+            backdrop-filter: blur(4px);
+            /* opcional: efecto vidrio */
+            z-index: 8;
+            background: #e100ff25;
+        }
+        
+        .btn .icon {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 8px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            min-height: 34px;
+        }
+        
+        .monster-top {
+            position: absolute;
+            top: 17%;
+            right: 5%;
+            width: 35%;
+            z-index: 4;
+            pointer-events: none;
+        }
+        /* Hojas cayendo */
+        /* H/* Gotas de sangre */
+        
+        .confetti {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            animation: fly linear infinite;
+            z-index: 999;
+            z-index: 5;
+            top: -10px;
+        }
+        /* Animación de caída */
+        
+        @keyframes fly {
+            0% {
+                transform: translateY(0) scaleY(0.5);
+                opacity: 3;
+            }
+            100% {
+                transform: translateY(160vh);
+                /* recorre toda la pantalla */
+                opacity: 7;
+            }
+        }
+        
+        .monster-bottom {
+            position: absolute;
+            bottom: 2%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            z-index: 6;
+            pointer-events: none;
+        }
+        /* globos */
+        /* murcielagos */
+        /* Murciélagos */
+        
+        .hojas {
+            position: absolute;
+            width: 50px;
+            height: 40px;
+            pointer-events: none;
+            filter: brightness(2);
+            animation: fly linear infinite;
+            z-index: 5;
+        }
+        /* Animación de vuelo */
+        /* Peluches laterales */
+        /* Peluches laterales con efecto de entrada/salida */
+        /* Peluches laterales */
+        
+        .fur-left,
+        .fur-right {
+            position: absolute;
+            top: 30%;
+            bottom: 0;
+            width: 120%;
+            z-index: 6;
+            pointer-events: none;
+            background-repeat: no-repeat;
+            background-size: contain;
+            max-width: 190px;
+            height: auto;
+            filter: brightness(1);
+        }
+        
+        .fur-left {
+            left: 0;
+            background-image: url('./img/chibi.png');
+            transform: translateX(-150px);
+            animation: slideLeft 6s ease-in-out infinite;
+        }
+        
+        .fur-right {
+            right: 0;
+            background-image: url('./img/Chibi-Nezuko-png-removebg-preview.png');
+            transform: translateX(150px);
+            animation: slideRight 12s ease-in-out infinite;
+        }
+        
+        @keyframes slideLeft {
+            0%,
+            100% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            50% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideRight {
+            0%,
+            100% {
+                transform: translateX(150px);
+                opacity: 0;
+            }
+            50% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .countdown {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00ff22;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+            text-align: center;
+            z-index: 5;
+        }
+        
+        .countdown-box {
+            display: inline-block;
+            padding: 6px 20px;
+            margin-top: 10px;
+            border-radius: 12px;
+            background: #e100ff25;
+            border: 2px solid #ff00ff;
+            color: #3ec1d3;
+            /* azul Sullivan */
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+        
+        .countdown {
+            letter-spacing: 0.5px;
+        }
+        
+        #play-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            /* pequeño rectangular */
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            /* casi transparente */
+            border: 2px solid #ff00ff;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .barras {
+            display: flex;
+            gap: 4px;
+            align-items: flex-end;
+            height: 30px;
+        }
+        
+        .barra {
+            width: 6px;
+            height: 15px;
+            /* altura inicial */
+            background: #ff00ff;
+            border-radius: 3px;
+            animation: subirBajar 1s infinite ease-in-out;
+            animation-play-state: paused;
+        }
+        
+        .barra:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .barra:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes subirBajar {
+            0%,
+            100% {
+                height: 15px;
+            }
+            50% {
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="phone" role="region" aria-label="Invitación">
+        <div class="bg"></div>
+        <div class="fur-left" aria-hidden="true"></div>
+        <div class="fur-right" aria-hidden="true"></div>
+
+        <img class="monster-top" src="img/logo.png" alt="" aria-hidden="true">
+
+        <div class="content">
+            <p class="subtitle">Acompáñanos a celebrar<br>este día especial</p>
+            <img src="img/numero.png" class="top-image" alt="">
+            <h1 class="name">Nezuko</h1>
+
+            <div class="date" role="group" aria-label="Fecha">
+                <div class="daynum">31</div>
+                <div class="meta">
+                    <div class="month">OCTUBRE</div>
+                    <div class="time">Viernes · 8:30 PM</div>
+                </div>
+            </div>
+            <!--Contador-->
+            <div class="countdown-box">
+                <div class="countdown" id="countdown"></div>
+            </div>
+            <!-- este empuja todo hacia abajo -->
+            <img src="img/Sleepy Girl Sticker.gif" class="bottom-image" alt="">
+
+            <p>¡Te esperamos!</p>
+
+            <div class="actions">
+                <a href="#" class="btn" id="verUbicacion">
+
+                    <span>Ubicación</span>
+                </a>
+
+                <a href="https://wa.me/5211234567890?text=Hola%20quiero%20confirmar%20asistencia" target="_blank" class="btn">
+
+                    <span>Confirmar asistencia</span>
+                </a>
+            </div>
+
+            <img class="monster-bottom" src="" alt="" aria-hidden="true">
+
+        </div>
+        <button id="play-btn">
+    <div class="barras">
+        <div class="barra"></div>
+        <div class="barra"></div>
+        <div class="barra"></div>
+    </div>
+</button>
+        <audio id="bg-music" src="musica/Kamado Tanjirou no Uta (From Demon Slayer Kimetsu no Yaiba) (Full Version).mp3" loop autoplay></audio>
+    </div>
+
+    <script>
+        const phone = document.querySelector('.phone');
+        // Crear hojas
+
+        setInterval(() => {
+            let drop = document.createElement('div');
+            drop.className = 'hojas';
+            drop.style.backgroundImage = "url('./img/hojas.gif')";
+            drop.style.backgroundSize = 'contain';
+            drop.style.backgroundRepeat = 'no-repeat';
+            drop.style.width = '30px'; // ajusta tamaño
+            drop.style.height = '30px';
+            drop.style.left = Math.random() * phone.clientWidth + 'px';
+            drop.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+            drop.style.animationDuration = (4 + Math.random() * 2) + 's';
+            phone.appendChild(drop);
+
+            setTimeout(() => drop.remove(), 3000);
+        }, 100);
+
+
+
+        // Genera gotas de sangre continuamente
+
+
+        setInterval(() => {
+            let drop = document.createElement('div');
+            drop.className = 'confetti';
+            drop.style.backgroundImage = "url('./img/sakuras.gif')";
+            drop.style.backgroundSize = 'contain';
+            drop.style.backgroundRepeat = 'no-repeat';
+            drop.style.width = '30px'; // ajusta tamaño
+            drop.style.height = '30px';
+            drop.style.left = Math.random() * phone.clientWidth + 'px';
+            drop.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+            drop.style.animationDuration = (4 + Math.random() * 2) + 's';
+            phone.appendChild(drop);
+
+            setTimeout(() => drop.remove(), 3000);
+        }, 100);
+
+
+
+
+        // Cambia la fecha a tu evento
+        const eventDate = new Date('2027-10-31T20:30:00');
+
+        const countdownEl = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = eventDate - now;
+
+            if (diff <= 0) {
+                countdownEl.textContent = "¡Es hoy!";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+
+        const music = document.getElementById('bg-music');
+        const playBtn = document.getElementById('play-btn');
+        const barras = document.querySelectorAll('.barra');
+        let playing = false;
+
+        // Reproducir música al hacer click en cualquier parte de la página
+        document.body.addEventListener('click', () => {
+            if (!playing) {
+                music.play();
+                playing = true;
+                barras.forEach(bar => bar.style.animationPlayState = 'running');
+            }
+        });
+
+        // Botón para pausar/reproducir
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (music.paused) {
+                music.play();
+                barras.forEach(bar => bar.style.animationPlayState = 'running');
+                playing = true;
+            } else {
+                music.pause();
+                barras.forEach(bar => bar.style.animationPlayState = 'paused');
+                playing = false;
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
